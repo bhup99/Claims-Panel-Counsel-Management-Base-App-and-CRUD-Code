@@ -5,9 +5,10 @@ app.controller('MainCtrl', MainCtrl);
 function MainCtrl($scope, $http, $window, $filter) {
 
 	$scope.currentRow = {};
+	$scope.setId=true;
 	$scope.list = {};
 	$scope.currentRow.id=-1;
-	$scope.doShowList = false;
+	$scope.doShowList = true;
 	$scope.departments = ["P&C", "PL", "F&S"] ;
 	$scope.status = ["Active", "Inactive", "Probationary"];
 	$scope.defenceType = ["Administrative_Defence", "Coverage", "Construction_Defect", "Cyber", "Property", "Casualty",
@@ -17,6 +18,10 @@ function MainCtrl($scope, $http, $window, $filter) {
 	$scope.toggle = (function() {
 		$scope.doShowList = !$scope.doShowList;
 	});
+
+	$scope.updateId = (function() {
+		$scope.setId = false;
+	})
 
 	$scope.setRateChanger = (function() {
 		if(typeof $scope.userEnrolledId === 'undefined')	return ;
@@ -45,6 +50,15 @@ function MainCtrl($scope, $http, $window, $filter) {
 			console.log("Error:" + data) ;
 		});
 
+	$http.get('states.json')
+		.success(function(data) {
+			$scope.states = data.results.collection1;
+			console.log("List of states " + JSON.stringify($scope.states));
+		})
+		.error(function(data) {
+			console.log("Error receiving the list of states " + data) ;
+		})
+
 	$scope.removeRow = (function(id) {
 		$http.delete('/api/list/'+id)
 			.success(function(data) {
@@ -54,6 +68,7 @@ function MainCtrl($scope, $http, $window, $filter) {
 			.error(function(data) {
 				console.log("Error: " + data);
 			});
+		$window.location.reload();
 	});
 
 	$scope.create = (function() {

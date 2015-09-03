@@ -161,9 +161,10 @@
                     <div class="row">
                         <div class="col-lg-12">
 
-                            <div>
-                                Choose an ID you want to choose from 1 to {{$scope.list.length}} :
-                                <input type="text" ng-model="userEnrolledId" placeholder="Input the number"></input>
+                            <div ng-show="setId">
+                                Choose an ID you want to choose as Admin :
+                                <input type="text" ng-model="userEnrolledId" placeholder="Input the number">
+                                <button ng-click="updateId()">Submit</button>
                             </div>
                             
                             <div class="row">
@@ -223,9 +224,6 @@
                                             
                                         </div>
 
-                                        {{userEnrolledId}}
-
-
                                         <div class="row" ng-hide="doShowList">
 
                                             <button class="btn" ng-click="toggle()"> Show List</button>
@@ -235,7 +233,15 @@
                                                     <form name="createVendor" role="form" ng-submit="create()" class="form-vertical">
                                                         <div class="col-sm-4">
                                                             <label >State Represented</label>
-                                                            <input ng-model="currentRow.State_Represented" type="text" class="form-control" id="state-represented" ng-value="currentRow[0].State_Represented">
+                                                            <!-- <input ng-model="currentRow.State_Represented" type="text" class="form-control" id="state-represented" ng-value="currentRow[0].State_Represented"> -->
+                                                            <select ng-model="currentRow.State_Represented"
+                                                                id="state-represented"
+                                                                name="state-represented"
+                                                                disable-search="true"
+                                                                ng-options="state.property1.text for state in states"
+                                                                data-placeholder="Select State">
+                                                                <option value=""></option>
+                                                            </select>
                                                         </div>
                                                         <br><br><br><br>
                                                         <div>
@@ -319,12 +325,6 @@
                                                         </div>
                                                         <div class="col-sm-4">
                                                         <div class="form-group">
-                                                            <label>State</label>
-                                                            <input ng-model="currentRow.State" type="text" class="form-control" id="state">
-                                                        </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                        <div class="form-group">
                                                             <label>Zip</label>
                                                             <input ng-model="currentRow.Zip" type="text" minlength=5 maxlength=5 class="form-control" id="zip">
                                                         </div>
@@ -370,6 +370,19 @@
                                                             <div class="form-group">
                                                                 <input type="hidden" id="id" ng-model="currentRow.id">
                                                             </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>State</label>
+                                                            <select ng-model="currentRow.State"
+                                                                id="state"
+                                                                name="state"
+                                                                disable-search="true"
+                                                                ng-options="state.property1.text for state in states"
+                                                                data-placeholder="Select State">
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
                                                         </div>
                                                          <div class="form-group col-sm-8">
                                                                 <label>Vendor Type</label>

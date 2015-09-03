@@ -44,7 +44,7 @@ connection.connect();
 });*/
 
 app.get('/api/list', function(req, res) {
-	var getList = "Select * from DataList where id<15";
+	var getList = "Select * from DataList";
 	connection.query(getList, function(err, rows, fields) {
 		if(!err) {
 			console.log("Succesfully Returned values " + rows) ;
