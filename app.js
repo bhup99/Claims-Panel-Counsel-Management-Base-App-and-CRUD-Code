@@ -53,7 +53,7 @@ function MainCtrl($scope, $http, $window, $filter) {
 	$http.get('states.json')
 		.success(function(data) {
 			$scope.states = data.results.collection1;
-			console.log("List of states " + JSON.stringify($scope.states));
+			console.log("List of states " + JSON.stringify($scope.property1));
 		})
 		.error(function(data) {
 			console.log("Error receiving the list of states " + data) ;
@@ -68,6 +68,8 @@ function MainCtrl($scope, $http, $window, $filter) {
 			.error(function(data) {
 				console.log("Error: " + data);
 			});
+			$scope.Date_Status_Changed = $filter('date')(new Date(), 'dd/MM/yyyy');
+			$scope.Status_Changed_By = $scope.userEnrolledId ;
 		$window.location.reload();
 	});
 

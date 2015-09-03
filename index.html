@@ -238,7 +238,7 @@
                                                                 id="state-represented"
                                                                 name="state-represented"
                                                                 disable-search="true"
-                                                                ng-options="state.property1.text for state in states"
+                                                                ng-options="state.property1 for state in states"
                                                                 data-placeholder="Select State">
                                                                 <option value=""></option>
                                                             </select>
@@ -378,7 +378,7 @@
                                                                 id="state"
                                                                 name="state"
                                                                 disable-search="true"
-                                                                ng-options="state.property1.text for state in states"
+                                                                ng-options="state.property1 for state in states"
                                                                 data-placeholder="Select State">
                                                                 <option value=""></option>
                                                             </select>
@@ -397,6 +397,16 @@
                                                         <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <input type="hidden" name="rateChangedBy" ng-model="currentRow.Rate_Changed_By"> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <input type="hidden" name="dateStatusChanged" ng-model="currentRow.Date_Status_Changed"> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <input type="hidden" name="statusChangedBy" ng-model="currentRow.statusChangedBy"> 
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
