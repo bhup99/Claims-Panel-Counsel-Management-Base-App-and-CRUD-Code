@@ -1,0 +1,432 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="app">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular Todo App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"><!-- load bootstrap -->
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+    </style>
+
+    <!-- SPELLS -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script><!-- load jquery -->
+    <script src="/bower_components/angular/angular.min.js"></script><!-- load angular -->
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    
+    <!-- RTL support - for demo only -->
+    <script src="js/demo-rtl.js"></script>
+    <!-- 
+    If you need RTL support just include here RTL CSS file <link rel="stylesheet" type="text/css" href="css/libs/bootstrap-rtl.min.css" />
+    And add "rtl" class to <body> element - e.g. <body class="rtl"> 
+    -->
+    
+    <!-- libraries -->
+    <link rel="stylesheet" type="text/css" href="css/libs/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/libs/nanoscroller.css" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="css/compiled/theme_styles.css" />
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css" />
+    
+    <!-- Favicon -->
+    <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
+
+    <!-- google font libraries -->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-app="app" ng-controller="MainCtrl">
+    <div id="theme-wrapper">
+        <header class="navbar" id="header-navbar">
+            <div class="container">
+                <a href="index.html" id="logo" class="navbar-brand">
+                    <img src="img/logo.png" alt="" class="normal-logo logo-white"/>
+                    <img src="img/logo-black.png" alt="" class="normal-logo logo-black"/>
+                    <img src="img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
+                </a>
+                
+                <div class="clearfix">
+                <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="fa fa-bars"></span>
+                </button>
+                
+                
+                <div class="nav-no-collapse pull-right" id="header-nav">
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="mobile-search">
+                            <a class="btn">
+                                <i class="fa fa-search"></i>
+                            </a>
+                            
+                            <div class="drowdown-search">
+                                <form role="search">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <i class="fa fa-search nav-search-icon"></i>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                        </li>
+                        <li class="dropdown profile-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="img/samples/scarlet-159.png" alt=""/>
+                                <span class="hidden-xs">Scarlett Johansson</span> <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="user-profile.html"><i class="fa fa-user"></i>Profile</a></li>
+                                <li><a href="#"><i class="fa fa-cog"></i>Settings</a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i>Messages</a></li>
+                                <li><a href="#"><i class="fa fa-power-off"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                        <li class="hidden-xxs">
+                            <a class="btn">
+                                <i class="fa fa-power-off"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </header>
+        <div id="page-wrapper" class="container">
+            <div class="row">
+                <div id="nav-col">
+                    <section id="col-left" class="col-left-nano">
+                        <div id="col-left-inner" class="col-left-nano-content">
+                            <div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown profile2-dropdown">
+                                <img alt="" src="img/samples/scarlet-159.png" />
+                                <div class="user-box">
+                                    <span class="name">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            Scarlett J. 
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="user-profile.html"><i class="fa fa-user"></i>Profile</a></li>
+                                            <li><a href="#"><i class="fa fa-cog"></i>Settings</a></li>
+                                            <li><a href="#"><i class="fa fa-envelope-o"></i>Messages</a></li>
+                                            <li><a href="#"><i class="fa fa-power-off"></i>Logout</a></li>
+                                        </ul>
+                                    </span>
+                                    <span class="status">
+                                        <i class="fa fa-circle"></i> Online
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav"> 
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li class="nav-header nav-header-first hidden-sm hidden-xs">
+                                        Navigation
+                                    </li>
+                                    <li class="active">
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="fa fa-table"></i>
+                                            <span>Tables</span>
+                                            <i class="fa fa-angle-right drop-icon"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="index.html" class="active">
+                                                    List
+                                                </a>
+                                            </li>
+                                            
+                                        </ul>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <div id="nav-col-submenu"></div>
+                </div>
+
+                <div id="content-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div>
+                                Choose an ID you want to choose from 1 to {{$scope.list.length}} :
+                                <input type="text" ng-model="userEnrolledId" placeholder="Input the number"></input>
+                            </div>
+                            
+                            <div class="row">
+                                    <div class="main-box clearfix">
+                                        <div class="main-box-body clearfix" ng-show="doShowList">
+                                            <button class="btn" ng-click="toggle()"> Create Row</button>
+                                            <div class="table-responsive">
+                                                <table st-table="list" class="table table-stripped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><a href="#"><span>Order ID</span></a></th>
+                                                            <th><span>Department</span></th>
+                                                            <th><span>Attorney</span></th>
+                                                            <th class="text-center"><span>Status</span></th>
+                                                            <th class="text-center"><span>Firm Name</span>
+                                                            <th class="text-right"><span>Price</span></th>
+                                                            <th><a href="#"> &nbsp</a></th>
+                                                            <th><a href="#"> &nbsp</a></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="l in list" >
+                                                            <td>
+                                                                <a href="#">{{l.id}}</a>
+                                                            </td>
+                                                            <td>
+                                                                {{l.Department}}
+                                                            </td>
+                                                            <td>
+                                                                <a href="#">{{l.Name}}</a>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span class="label label-success">{{l.Status}}</span>
+                                                            </td>
+                                                            <td>
+                                                                {{l.Firm_Name}}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                {{l.Partner}}
+                                                            </td>
+                                                            <td>
+                                                                <button ng-click="removeRow(l.id)">Delete</button>
+                                                            </td>
+                                                            <td>
+                                                                <button ng-click="getCurrentRow(l.id)">Edit</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <!-- <tfoot>
+                                                    <tr>
+                                                        <td class="text-center" st-pagination="true" st-items-by-page="10" colspan="4">
+                                                        </td>
+                                                    </tr>
+                                                    </tfoot> -->
+                                                </table>
+                                            </div>
+                                            
+                                        </div>
+
+                                        {{userEnrolledId}}
+
+
+                                        <div class="row" ng-hide="doShowList">
+
+                                            <button class="btn" ng-click="toggle()"> Show List</button>
+                                            <div class="col-lg-12">
+                                                <div class="main-box clearfix">
+                                                    
+                                                    <form name="createVendor" role="form" ng-submit="create()" class="form-vertical">
+                                                        <div class="col-sm-4">
+                                                            <label >State Represented</label>
+                                                            <input ng-model="currentRow.State_Represented" type="text" class="form-control" id="state-represented" ng-value="currentRow[0].State_Represented">
+                                                        </div>
+                                                        <br><br><br><br>
+                                                        <div>
+                                                            <label>Department</label>
+
+                                                            <select ng-model="currentRow.Department"
+                                                                id="department"
+                                                                name="department"
+                                                                disable-search="true"
+                                                                ng-options="department as department for department in departments"
+                                                                data-placeholder="Select Department">
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
+                                                        <br>
+                                                        <div >
+                                                            <label>Status</label>
+                                                            <select ng-model="currentRow.Status"
+                                                                id="status"
+                                                                name="status"
+                                                                disable-search="true"
+                                                                ng-options="status as status for status in status"
+                                                                data-placeholder="Select Status">
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
+                                                        <br>
+                                                        <div class="form-group">
+                                                                <label>Type of defence</label>
+                                                                <select ng-model="currentRow.DefenceType"
+                                                                id="defenceType"
+                                                                multiple
+                                                                name="defenceTyoe"
+                                                                disable-search="true"
+                                                                ng-options="defenceType as defenceType for defenceType in defenceType"
+                                                                data-placeholder="Select Type of Defence">
+                                                                <option value=""></option>
+                                                                </select>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label>Firm Name</label>
+                                                            <input ng-model="currentRow.Firm_Name" type="text" class="form-control" id="firm-name">
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label>Name</label>
+                                                            <input ng-model="currentRow.Name" type="text" class="form-control" id="name">
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                        <div class="">
+                                                            <label>Key Contact</label>
+                                                            <input ng-model="currentRow.Key_Contact" type="text" class="form-control" id="key-contact">
+                                                        </div>
+                                                        </div>
+                                                        
+
+                                                       
+
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Phone</label>
+                                                            <input ng-model="currentRow.Phone" type="text" class="form-control" id="phone">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input ng-model="currentRow.Email" type="text" class="form-control" id="email">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Address</label>
+                                                            <input ng-model="currentRow.Address" type="text" class="form-control" id="address">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>City</label>
+                                                            <input ng-model="currentRow.City" type="text" class="form-control" id="city">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>State</label>
+                                                            <input ng-model="currentRow.State" type="text" class="form-control" id="state">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Zip</label>
+                                                            <input ng-model="currentRow.Zip" type="text" minlength=5 maxlength=5 class="form-control" id="zip">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Zip Extra</label>
+                                                            <input ng-model="currentRow.ZipExtra" maxlength=4 type="text" class="form-control" id="zip-extra">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Vendor Number</label>
+                                                            <input ng-model="currentRow.Vendor_Number" minlength=10 maxlength=10 type="text" class="form-control" id="vendor-number">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Partner</label>
+                                                            <input ng-change="setRateChanger()" ng-model="currentRow.Partner" type="text" class="form-control" id="partner">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Associate</label>
+                                                            <input ng-change="setRateChanger()" ng-model="currentRow.Associate" type="text" class="form-control" id="associate">
+                                                        </div>
+                                                        </div>
+                                                        <br><br><br>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Paralegal</label>
+                                                            <input ng-change="setRateChanger()" ng-model="currentRow.Paralegal" type="text" class="form-control" id="paralegal">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label>Notes</label>
+                                                            <input ng-model="currentRow.Notes" type="text" class="form-control" id="notes">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <input type="hidden" id="id" ng-model="currentRow.id">
+                                                            </div>
+                                                        </div>
+                                                         <div class="form-group col-sm-8">
+                                                                <label>Vendor Type</label>
+                                                                <select ng-model="currentRow.Vendor_Type"
+                                                                id="vendor_type"
+                                                                name="vendor_type"
+                                                                disable-search="true"
+                                                                ng-options="vendorType as vendorType for vendorType in vendorType"
+                                                                data-placeholder="">
+                                                                <option value=""></option>
+                                                        </div><br><br>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <input type="hidden" name="rateChangedBy" ng-model="currentRow.Rate_Changed_By"> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="submit" class="btn btn-medium" ng-click="toggle()">
+                                                        </div>
+                                                    </form>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- <footer id="footer-bar" class="row">
+                        <p id="footer-copyright" class="col-xs-12">
+                            Powered by Cube Theme.
+                        </p>
+                    </footer> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- global scripts -->
+    <script src="js/demo-skin-changer.js"></script> <!-- only for demo -->
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.nanoscroller.min.js"></script>
+    
+    <script src="js/demo.js"></script> <!-- only for demo -->
+    
+    <!-- this page specific scripts -->
+    <script src="js/moment.min.js"></script>
+    <script src="js/daterangepicker.js"></script>
+    
+    <!-- theme scripts -->
+    <script src="js/scripts.js"></script>
+    <script src="js/pace.min.js"></script>
+    
+</body>
+</html>

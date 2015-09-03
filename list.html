@@ -1,0 +1,49 @@
+<div class="main-box-body clearfix">
+                                            <div class="table-responsive">
+                                                <table st-table="list" class="table table-stripped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><a href="#"><span>Order ID</span></a></th>
+                                                            <th><a href="#" class="desc"><span>Date</span></a></th>
+                                                            <th><a href="#" class="asc"><span>Customer</span></a></th>
+                                                            <th class="text-center"><span>Status</span></th>
+                                                            <th class="text-right"><span>Price</span></th>
+                                                            <th><a href="#"> &nbsp</a></th>
+                                                            <th><a href="#"> &nbsp</a></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="l in list" >
+                                                            <td>
+                                                                <a href="#">{{l.id}}</a>
+                                                            </td>
+                                                            <td>
+                                                                {{l.City}}
+                                                            </td>
+                                                            <td>
+                                                                <a href="#">{{l.Name}}</a>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span class="label label-success">{{l.Status}}</span>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                {{l.Partner}}
+                                                            </td>
+                                                            <td>
+                                                                <button ng-click="removeRow(l.id)">Delete</button>
+                                                            </td>
+                                                            <td>
+                                                                <button ng-click="getCurrentRow(l.id)"><a href="create-or-edit.html">Edit</a></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <!-- <tfoot>
+                                                    <tr>
+                                                        <td class="text-center" st-pagination="true" st-items-by-page="10" colspan="4">
+                                                        </td>
+                                                    </tr>
+                                                    </tfoot> -->
+                                                </table>
+                                            </div>
+                                            
+                                        </div>
